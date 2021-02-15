@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
-import { Button, Flex, Text, InjectedModalProps } from '@pancakeswap-libs/uikit'
+import { Button, Flex, Text, InjectedModalProps } from '@pieswap-libs/uikit'
 import { getFullDisplayBalance } from 'utils/formatBalance'
-import { getPancakeProfileAddress } from 'utils/addressHelpers'
-import { useCake } from 'hooks/useContract'
+import { getPieProfileAddress } from 'utils/addressHelpers'
+import { usePie } from 'hooks/useContract'
 import useI18n from 'hooks/useI18n'
 import { useProfile } from 'state/hooks'
 import useGetProfileCosts from 'views/Profile/hooks/useGetProfileCosts'
-import useHasCakeBalance from 'hooks/useHasCakeBalance'
+import useHasPieBalance from 'hooks/useHasPieBalance'
 import { UseEditProfileResponse } from './reducer'
 import ProfileAvatar from '../ProfileAvatar'
 
@@ -33,20 +33,20 @@ const DangerOutline = styled(Button).attrs({ variant: 'secondary', fullWidth: tr
 const StartPage: React.FC<StartPageProps> = ({ goToApprove, goToChange, goToRemove, onDismiss }) => {
   const [needsApproval, setNeedsApproval] = useState(null)
   const { profile } = useProfile()
-  const { numberCakeToUpdate, numberCakeToReactivate } = useGetProfileCosts()
-  const hasMinimumCakeRequired = useHasCakeBalance(profile.isActive ? numberCakeToUpdate : numberCakeToReactivate)
+  const { numberPieToUpdate, numberPieToReactivate } = useGetProfileCosts()
+  const hasMinimumPieRequired = useHasPieBalance(profile.isActive ? numberPieToUpdate : numberPieToReactivate)
   const TranslateString = useI18n()
   const { account } = useWallet()
-  const cakeContract = useCake()
-  const cost = profile.isActive ? numberCakeToUpdate : numberCakeToReactivate
+  const pieContract = useCake()
+  const cost = profile.isActive ? numberPieToUpdate : numberPieToReactivate
 
   /**
-   * Check if the wallet has the required CAKE allowance to change their profile pic or reactivate
+   * Check if the wallet has the required PIE allowance to change their profile pic or reactivate
    * If they don't, we send them to the approval screen first
    */
   useEffect(() => {
     const checkApprovalStatus = async () => {
-      const response = await cakeContract.methods.allowance(account, getPancakeProfileAddress()).call()
+      const response = await cakeContract.methods.allowance(account, getPieProfileAddress()).call()
       const currentAllowance = new BigNumber(response)
       setNeedsApproval(currentAllowance.lt(cost))
     }
@@ -65,8 +65,8 @@ const StartPage: React.FC<StartPageProps> = ({ goToApprove, goToChange, goToRemo
       <ProfileAvatar profile={profile} />
       <Flex alignItems="center" style={{ height: '48px' }} justifyContent="center">
         <Text as="p" color="failure">
-          {!hasMinimumCakeRequired &&
-            TranslateString(999, `${getFullDisplayBalance(numberCakeToUpdate)} CAKE required to change profile pic`)}
+          {!hasMinimumPieRequired &&
+            TranslateString(999, `${getFullDisplayBalance(numberPieToUpdate)} PIE required to change profile pic`)}
         </Text>
       </Flex>
       {profile.isActive ? (
