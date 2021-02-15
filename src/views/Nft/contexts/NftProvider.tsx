@@ -4,7 +4,7 @@ import { useWallet } from '@binance-chain/bsc-use-wallet'
 import useBlock from 'hooks/useBlock'
 import useGetWalletNfts, { NftMap } from 'hooks/useGetWalletNfts'
 import { getRabbitMintingFarmAddress } from 'utils/addressHelpers'
-import { getPancakeRabbitContract } from 'utils/contractHelpers'
+import { getPieRabbitContract } from 'utils/contractHelpers'
 import multicall from 'utils/multicall'
 import rabbitmintingfarm from 'config/abi/rabbitmintingfarm.json'
 
@@ -72,11 +72,11 @@ const NftProvider: React.FC = ({ children }) => {
   useEffect(() => {
     const fetchContractData = async () => {
       try {
-        const pancakeRabbitsContract = getPancakeRabbitContract()
+        const pieRabbitsContract = getPieRabbitContract()
         const [hasClaimedArr] = await multicall(rabbitmintingfarm, [
           { address: rabbitMintingFarmAddress, name: 'hasClaimed', params: [account] },
         ])
-        const balanceOf = await pancakeRabbitsContract.methods.balanceOf(account).call()
+        const balanceOf = await pieRabbitsContract.methods.balanceOf(account).call()
         const [hasClaimed]: [boolean] = hasClaimedArr
 
         setState((prevState) => ({
