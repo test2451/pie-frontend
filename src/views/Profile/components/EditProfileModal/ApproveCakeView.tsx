@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
-import { AutoRenewIcon, Button, Flex, InjectedModalProps, Text } from '@pancakeswap-libs/uikit'
+import { AutoRenewIcon, Button, Flex, InjectedModalProps, Text } from '@pieswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
-import { useCake } from 'hooks/useContract'
+import { usePie } from 'hooks/useContract'
 import { useProfile, useToast } from 'state/hooks'
-import { getPancakeProfileAddress } from 'utils/addressHelpers'
+import { getPieProfileAddress } from 'utils/addressHelpers'
 import { getFullDisplayBalance } from 'utils/formatBalance'
 import useGetProfileCosts from '../../hooks/useGetProfileCosts'
 import { UseEditProfileResponse } from './reducer'
@@ -13,19 +13,19 @@ interface ApproveCakePageProps extends InjectedModalProps {
   goToChange: UseEditProfileResponse['goToChange']
 }
 
-const ApproveCakePage: React.FC<ApproveCakePageProps> = ({ goToChange, onDismiss }) => {
+const ApprovePiePage: React.FC<ApprovePiePageProps> = ({ goToChange, onDismiss }) => {
   const [isApproving, setIsApproving] = useState(false)
   const { profile } = useProfile()
   const TranslateString = useI18n()
   const { account } = useWallet()
-  const { numberCakeToUpdate, numberCakeToReactivate } = useGetProfileCosts()
-  const cakeContract = useCake()
+  const { numberPieToUpdate, numberPieToReactivate } = useGetProfileCosts()
+  const pieContract = usePie()
   const { toastError } = useToast()
-  const cost = profile.isActive ? numberCakeToUpdate : numberCakeToReactivate
+  const cost = profile.isActive ? numberPieToUpdate : numberPieToReactivate
 
   const handleApprove = () => {
-    cakeContract.methods
-      .approve(getPancakeProfileAddress(), cost.times(2).toJSON())
+    pieContract.methods
+      .approve(getPieProfileAddress(), cost.times(2).toJSON())
       .send({ from: account })
       .on('sending', () => {
         setIsApproving(true)
@@ -68,4 +68,4 @@ const ApproveCakePage: React.FC<ApproveCakePageProps> = ({ goToChange, onDismiss
   )
 }
 
-export default ApproveCakePage
+export default ApprovePiePage
