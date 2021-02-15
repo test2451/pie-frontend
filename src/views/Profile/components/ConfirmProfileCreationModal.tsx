@@ -1,9 +1,9 @@
 import React from 'react'
-import { Modal, Flex, Text } from '@pancakeswap-libs/uikit'
+import { Modal, Flex, Text } from '@pieswap-libs/uikit'
 import { useDispatch } from 'react-redux'
 import BigNumber from 'bignumber.js'
 import useI18n from 'hooks/useI18n'
-import { useCake, usePancakeRabbits, useProfile } from 'hooks/useContract'
+import { useCake, usePieRabbits, useProfile } from 'hooks/useContract'
 import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
 import { fetchProfile } from 'state/profile'
 import { useToast } from 'state/hooks'
@@ -14,7 +14,7 @@ interface Props {
   tokenId: number
   account: string
   teamId: number
-  minimumCakeRequired: BigNumber
+  minimumPieRequired: BigNumber
   allowance: BigNumber
   onDismiss?: () => void
 }
@@ -22,10 +22,10 @@ interface Props {
 const ContributeModal: React.FC<Props> = ({ account, teamId, tokenId, minimumCakeRequired, allowance, onDismiss }) => {
   const TranslateString = useI18n()
   const profileContract = useProfile()
-  const pancakeRabbitsContract = usePancakeRabbits()
+  const pieRabbitsContract = usePieRabbits()
   const dispatch = useDispatch()
   const { toastSuccess } = useToast()
-  const cakeContract = useCake()
+  const pieContract = usePie()
 
   const {
     isApproving,
@@ -45,11 +45,11 @@ const ContributeModal: React.FC<Props> = ({ account, teamId, tokenId, minimumCak
       }
     },
     onApprove: () => {
-      return cakeContract.methods.approve(profileContract.options.address, allowance.toJSON()).send({ from: account })
+      return pieContract.methods.approve(profileContract.options.address, allowance.toJSON()).send({ from: account })
     },
     onConfirm: () => {
       return profileContract.methods
-        .createProfile(teamId, pancakeRabbitsContract.options.address, tokenId)
+        .createProfile(teamId, pieRabbitsContract.options.address, tokenId)
         .send({ from: account })
     },
     onSuccess: async () => {
