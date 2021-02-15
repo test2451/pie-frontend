@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Modal, Text, InjectedModalProps, Button, AutoRenewIcon } from '@pancakeswap-libs/uikit'
+import { Modal, Text, InjectedModalProps, Button, AutoRenewIcon } from '@pieswap-libs/uikit'
 import { AbiItem } from 'web3-utils'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
 import claimRefundAbi from 'config/abi/claimRefund.json'
@@ -54,7 +54,7 @@ const ClaimGift: React.FC<ClaimGiftProps> = ({ onSuccess, onDismiss }) => {
 
   const handleClick = () => {
     claimRefundContract.methods
-      .getCakeBack()
+      .getPieBack()
       .send({ from: account })
       .on('sending', () => {
         setIsConfirming(true)
@@ -73,7 +73,7 @@ const ClaimGift: React.FC<ClaimGiftProps> = ({ onSuccess, onDismiss }) => {
   return (
     <Modal title={TranslateString(999, 'Claim your Gift!')} onDismiss={onDismiss}>
       <div style={{ maxWidth: '640px' }}>
-        <Text as="p">{TranslateString(999, 'Thank you for being a day-one user of Pancake Profiles!')}</Text>
+        <Text as="p">{TranslateString(999, 'Thank you for being a day-one user of Pie Profiles!')}</Text>
         <Text as="p" mb="8px">
           {TranslateString(
             999,
