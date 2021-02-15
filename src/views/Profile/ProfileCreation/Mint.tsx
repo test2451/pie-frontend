@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import BigNumber from 'bignumber.js'
-import { Card, CardBody, Heading, Text } from '@pancakeswap-libs/uikit'
+import { Card, CardBody, Heading, Text } from '@pieswap-libs/uikit'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
 import useI18n from 'hooks/useI18n'
 import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
-import { useCake, useRabbitMintingFarm } from 'hooks/useContract'
-import useHasCakeBalance from 'hooks/useHasCakeBalance'
+import { usePie, useRabbitMintingFarm } from 'hooks/useContract'
+import useHasPieBalance from 'hooks/useHasPieBalance'
 import nftList from 'config/constants/nfts'
 import SelectionCard from '../components/SelectionCard'
 import NextStepButton from '../components/NextStepButton'
@@ -14,16 +14,16 @@ import useProfileCreation from './contexts/hook'
 
 const starterBunnyIds = [5, 6, 7, 8, 9]
 const nfts = nftList.filter((nft) => starterBunnyIds.includes(nft.bunnyId))
-const minimumCakeBalance = 4
+const minimumPieBalance = 4
 
 const Mint: React.FC = () => {
   const [bunnyId, setBunnyId] = useState(null)
-  const { actions, minimumCakeRequired, allowance } = useProfileCreation()
+  const { actions, minimumPieRequired, allowance } = useProfileCreation()
   const { account } = useWallet()
-  const cakeContract = useCake()
+  const pieContract = usePie()
   const mintingFarmContract = useRabbitMintingFarm()
   const TranslateString = useI18n()
-  const hasMinimumCakeRequired = useHasCakeBalance(minimumCakeBalance)
+  const hasMinimumPieRequired = useHasPieBalance(minimumPieBalance)
   const {
     isApproving,
     isApproved,
@@ -37,7 +37,7 @@ const Mint: React.FC = () => {
       try {
         const response = await cakeContract.methods.allowance(account, mintingFarmContract.options.address).call()
         const currentAllowance = new BigNumber(response)
-        return currentAllowance.gte(minimumCakeRequired)
+        return currentAllowance.gte(minimumPieRequired)
       } catch (error) {
         return false
       }
@@ -88,7 +88,7 @@ const Mint: React.FC = () => {
                 image={`/images/nfts/${nft.images.md}`}
                 isChecked={bunnyId === nft.bunnyId}
                 onChange={handleChange}
-                disabled={isApproving || isConfirming || isConfirmed || !hasMinimumCakeRequired}
+                disabled={isApproving || isConfirming || isConfirmed || !hasMinimumPieRequired}
               >
                 <Text bold>{nft.name}</Text>
               </SelectionCard>
@@ -102,9 +102,9 @@ const Mint: React.FC = () => {
             onApprove={handleApprove}
             onConfirm={handleConfirm}
           />
-          {!hasMinimumCakeRequired && (
+          {!hasMinimumPieRequired && (
             <Text color="failure" mt="16px">
-              {TranslateString(1098, `A minimum of ${minimumCakeBalance} CAKE is required`)}
+              {TranslateString(1098, `A minimum of ${minimumPieBalance} PIE is required`)}
             </Text>
           )}
         </CardBody>
