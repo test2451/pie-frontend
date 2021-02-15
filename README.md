@@ -1,4 +1,4 @@
-# 🥞 Pie Frontend
+# 🥧 Pie Frontend
 
 
 This project contains the main features of the pie application.
