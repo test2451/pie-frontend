@@ -20,8 +20,8 @@ export interface Ifo {
 }
 
 export enum QuoteToken {
-  'BNB' = 'BNB',
-  'CAKE' = 'CAKE',
+  'OKT' = 'OKT',
+  'PIE' = 'PIE',
   'SYRUP' = 'SYRUP',
   'BUSD' = 'BUSD',
   'TWT' = 'TWT',
@@ -33,7 +33,7 @@ export enum QuoteToken {
 export enum PoolCategory {
   'COMMUNITY' = 'Community',
   'CORE' = 'Core',
-  'BINANCE' = 'Binance', // Pools using native BNB behave differently than pools using a token
+  'OKEX' = 'OKEX', // Pools using native OKT behave differently than pools using a token
 }
 
 export interface Address {
