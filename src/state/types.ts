@@ -1,4 +1,4 @@
-import { Toast } from '@pancakeswap-libs/uikit'
+import { Toast } from '@pieswap-libs/uikit'
 import BigNumber from 'bignumber.js'
 import { FarmConfig, Nft, PoolConfig, Team } from 'config/constants/types'
 
