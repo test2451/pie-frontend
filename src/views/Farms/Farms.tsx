@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux'
 import BigNumber from 'bignumber.js'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
 import { provider } from 'web3-core'
-import { Image, Heading } from '@pancakeswap-libs/uikit'
-import { BLOCKS_PER_YEAR, CAKE_PER_BLOCK, CAKE_POOL_PID } from 'config'
+import { Image, Heading } from '@pieswap-libs/uikit'
+import { BLOCKS_PER_YEAR, PIE_PER_BLOCK, PIE_POOL_PID } from 'config'
 import FlexLayout from 'components/layout/Flex'
 import Page from 'components/layout/Page'
 import { useFarms, usePriceBnbBusd, usePriceCakeBusd, usePriceEthBusd } from 'state/hooks'
@@ -46,26 +46,26 @@ const Farms: React.FC = () => {
   // to retrieve assets prices against USD
   const farmsList = useCallback(
     (farmsToDisplay, removed: boolean) => {
-      const cakePriceVsBNB = new BigNumber(farmsLP.find((farm) => farm.pid === CAKE_POOL_PID)?.tokenPriceVsQuote || 0)
+      const piePriceVsOKT = new BigNumber(farmsLP.find((farm) => farm.pid === PIE_POOL_PID)?.tokenPriceVsQuote || 0)
       const farmsToDisplayWithAPY: FarmWithStakedValue[] = farmsToDisplay.map((farm) => {
         if (!farm.tokenAmount || !farm.lpTotalInQuoteToken || !farm.lpTotalInQuoteToken) {
           return farm
         }
-        const cakeRewardPerBlock = CAKE_PER_BLOCK.times(farm.poolWeight)
-        const cakeRewardPerYear = cakeRewardPerBlock.times(BLOCKS_PER_YEAR)
+        const pieRewardPerBlock = PIE_PER_BLOCK.times(farm.poolWeight)
+        const pieRewardPerYear = pieRewardPerBlock.times(BLOCKS_PER_YEAR)
 
-        // cakePriceInQuote * cakeRewardPerYear / lpTotalInQuoteToken
-        let apy = cakePriceVsBNB.times(cakeRewardPerYear).div(farm.lpTotalInQuoteToken)
+        // piePriceInQuote * pieRewardPerYear / lpTotalInQuoteToken
+        let apy = piePriceVsOKT.times(pieRewardPerYear).div(farm.lpTotalInQuoteToken)
 
         if (farm.quoteTokenSymbol === QuoteToken.BUSD || farm.quoteTokenSymbol === QuoteToken.UST) {
-          apy = cakePriceVsBNB.times(cakeRewardPerYear).div(farm.lpTotalInQuoteToken).times(bnbPrice)
+          apy = piePriceVsOKT.times(pieRewardPerYear).div(farm.lpTotalInQuoteToken).times(oktPrice)
         } else if (farm.quoteTokenSymbol === QuoteToken.ETH) {
-          apy = cakePrice.div(ethPriceUsd).times(cakeRewardPerYear).div(farm.lpTotalInQuoteToken)
-        } else if (farm.quoteTokenSymbol === QuoteToken.CAKE) {
-          apy = cakeRewardPerYear.div(farm.lpTotalInQuoteToken)
+          apy = piePrice.div(ethPriceUsd).times(pieRewardPerYear).div(farm.lpTotalInQuoteToken)
+        } else if (farm.quoteTokenSymbol === QuoteToken.PIE) {
+          apy = pieRewardPerYear.div(farm.lpTotalInQuoteToken)
         } else if (farm.dual) {
-          const cakeApy =
-            farm && cakePriceVsBNB.times(cakeRewardPerBlock).times(BLOCKS_PER_YEAR).div(farm.lpTotalInQuoteToken)
+          const pieApy =
+            farm && piePriceVsBNB.times(pieRewardPerBlock).times(BLOCKS_PER_YEAR).div(farm.lpTotalInQuoteToken)
           const dualApy =
             farm.tokenPriceVsQuote &&
             new BigNumber(farm.tokenPriceVsQuote)
@@ -73,7 +73,7 @@ const Farms: React.FC = () => {
               .times(BLOCKS_PER_YEAR)
               .div(farm.lpTotalInQuoteToken)
 
-          apy = cakeApy && dualApy && cakeApy.plus(dualApy)
+          apy = pieApy && dualApy && pieApy.plus(dualApy)
         }
 
         return { ...farm, apy }
@@ -83,21 +83,21 @@ const Farms: React.FC = () => {
           key={farm.pid}
           farm={farm}
           removed={removed}
-          bnbPrice={bnbPrice}
-          cakePrice={cakePrice}
+          oktPrice={oktPrice}
+          cakePrice={piePrice}
           ethPrice={ethPriceUsd}
           ethereum={ethereum}
           account={account}
         />
       ))
     },
-    [farmsLP, bnbPrice, ethPriceUsd, cakePrice, ethereum, account],
+    [farmsLP, oktPrice, ethPriceUsd, piePrice, ethereum, account],
   )
 
   return (
     <Page>
       <Heading as="h1" size="lg" color="secondary" mb="50px" style={{ textAlign: 'center' }}>
-        {TranslateString(999, 'Stake LP tokens to earn CAKE')}
+        {TranslateString(999, 'Stake LP tokens to earn PIE')}
       </Heading>
       <FarmTabButtons stackedOnly={stackedOnly} setStackedOnly={setStackedOnly} />
       <div>
@@ -111,7 +111,7 @@ const Farms: React.FC = () => {
           </Route>
         </FlexLayout>
       </div>
-      <Image src="/images/cakecat.png" alt="Pancake illustration" width={949} height={384} responsive />
+      <Image src="/images/piecat.png" alt="Pancake illustration" width={949} height={384} responsive />
     </Page>
   )
 }
