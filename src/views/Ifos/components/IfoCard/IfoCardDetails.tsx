@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { Text, LinkExternal, Link } from '@pancakeswap-libs/uikit'
+import { Text, LinkExternal, Link } from '@pieswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
 
 export interface IfoCardDetailsProps {
@@ -9,7 +9,7 @@ export interface IfoCardDetailsProps {
   launchTime: string
   saleAmount: string
   raiseAmount: string
-  cakeToBurn: string
+  pieToBurn: string
   projectSiteUrl: string
   raisingAmount: BigNumber
   totalAmount: BigNumber
@@ -34,7 +34,7 @@ const IfoCardDetails: React.FC<IfoCardDetailsProps> = ({
   launchTime,
   saleAmount,
   raiseAmount,
-  cakeToBurn,
+  pieToBurn,
   projectSiteUrl,
   raisingAmount,
   totalAmount,
@@ -68,8 +68,8 @@ const IfoCardDetails: React.FC<IfoCardDetailsProps> = ({
           <Text>{raiseAmount}</Text>
         </Item>
         <Item>
-          <Display>{TranslateString(586, 'CAKE to burn (USD)')}</Display>
-          <Text>{cakeToBurn}</Text>
+          <Display>{TranslateString(586, 'PIE to burn (USD)')}</Display>
+          <Text>{pieToBurn}</Text>
         </Item>
         <Item>
           <Display>{TranslateString(999, 'Total raised (% of target)')}</Display>
