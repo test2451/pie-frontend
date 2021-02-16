@@ -190,7 +190,7 @@
   },
   {
     "inputs": [
-      { "internalType": "contract IERC20", "name": "_cake", "type": "address" },
+      { "internalType": "contract IERC20", "name": "_pie", "type": "address" },
       { "internalType": "contract LotteryNFT", "name": "_lottery", "type": "address" },
       { "internalType": "uint256", "name": "_minPrice", "type": "uint256" },
       { "internalType": "uint8", "name": "_maxNumber", "type": "uint8" },
