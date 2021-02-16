@@ -1,15 +1,15 @@
 import React from 'react'
-import { Text } from '@pancakeswap-libs/uikit'
+import { Text } from '@pieswap-libs/uikit'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
 import useTokenBalance from 'hooks/useTokenBalance'
 import useI18n from 'hooks/useI18n'
-import { getCakeAddress } from 'utils/addressHelpers'
+import { getPieAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from 'utils/formatBalance'
 import CardValue from './CardValue'
 
-const CakeWalletBalance = () => {
+const PieWalletBalance = () => {
   const TranslateString = useI18n()
-  const cakeBalance = useTokenBalance(getCakeAddress())
+  const pieBalance = useTokenBalance(getPieAddress())
   const { account } = useWallet()
 
   if (!account) {
@@ -20,7 +20,7 @@ const CakeWalletBalance = () => {
     )
   }
 
-  return <CardValue value={getBalanceNumber(cakeBalance)} fontSize="24px" />
+  return <CardValue value={getBalanceNumber(pieBalance)} fontSize="24px" />
 }
 
-export default CakeWalletBalance
+export default PieWalletBalance
