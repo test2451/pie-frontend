@@ -5,19 +5,19 @@ import useWeb3 from 'hooks/useWeb3'
 import {
   getAddress,
   getMasterChefAddress,
-  getCakeAddress,
+  getPieAddress,
   getLotteryAddress,
   getLotteryTicketAddress,
   getRabbitMintingFarmAddress,
-  getPancakeProfileAddress,
-  getPancakeRabbitsAddress,
+  getPieProfileAddress,
+  getPieRabbitsAddress,
 } from 'utils/addressHelpers'
 import { poolsConfig } from 'config/constants'
 import { PoolCategory } from 'config/constants/types'
 import ifo from 'config/abi/ifo.json'
 import erc20 from 'config/abi/erc20.json'
 import rabbitmintingfarm from 'config/abi/rabbitmintingfarm.json'
-import pancakeRabbits from 'config/abi/pancakeRabbits.json'
+import pieRabbits from 'config/abi/pieRabbits.json'
 import lottery from 'config/abi/lottery.json'
 import lotteryTicket from 'config/abi/lotteryNft.json'
 import masterChef from 'config/abi/masterchef.json'
@@ -50,7 +50,7 @@ export const useERC20 = (address: string) => {
   return useContract(erc20Abi, address)
 }
 
-export const useCake = () => {
+export const usePie = () => {
   return useERC20(getCakeAddress())
 }
 
@@ -59,14 +59,14 @@ export const useRabbitMintingFarm = () => {
   return useContract(rabbitMintingFarmAbi, getRabbitMintingFarmAddress())
 }
 
-export const usePancakeRabbits = () => {
-  const pancakeRabbitsAbi = (pancakeRabbits as unknown) as AbiItem
-  return useContract(pancakeRabbitsAbi, getPancakeRabbitsAddress())
+export const usePieRabbits = () => {
+  const pieRabbitsAbi = (pieRabbits as unknown) as AbiItem
+  return useContract(pieRabbitsAbi, getPieRabbitsAddress())
 }
 
 export const useProfile = () => {
   const profileABIAbi = (profile as unknown) as AbiItem
-  return useContract(profileABIAbi, getPancakeProfileAddress())
+  return useContract(profileABIAbi, getPieProfileAddress())
 }
 
 export const useLottery = () => {
@@ -86,7 +86,7 @@ export const useMasterchef = () => {
 
 export const useSousChef = (id) => {
   const config = poolsConfig.find((pool) => pool.sousId === id)
-  const rawAbi = config.poolCategory === PoolCategory.BINANCE ? sousChefBnb : sousChef
+  const rawAbi = config.poolCategory === PoolCategory.OKEX ? sousChefOkt : sousChef
   const abi = (rawAbi as unknown) as AbiItem
   return useContract(abi, getAddress(config.contractAddress))
 }
