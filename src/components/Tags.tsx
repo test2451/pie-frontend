@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tag, VerifiedIcon, CommunityIcon, BinanceIcon } from '@pancakeswap-libs/uikit'
+import { Tag, VerifiedIcon, CommunityIcon, OkexIcon } from '@pieswap-libs/uikit'
 
 const CoreTag = () => (
   <Tag variant="secondary" outline startIcon={<VerifiedIcon />}>
@@ -13,10 +13,10 @@ const CommunityTag = () => (
   </Tag>
 )
 
-const BinanceTag = () => (
-  <Tag variant="binance" outline startIcon={<BinanceIcon />}>
-    Binance
+const OkexTag = () => (
+  <Tag variant="okex" outline startIcon={<OkexIcon />}>
+    Okex
   </Tag>
 )
 
-export { CoreTag, CommunityTag, BinanceTag }
+export { CoreTag, CommunityTag, OkexTag }
