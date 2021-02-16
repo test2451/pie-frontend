@@ -1,4 +1,4 @@
-import { getPancakeProfileAddress, getPieRabbitsAddress } from 'utils/addressHelpers'
+import { getPieProfileAddress, getPieRabbitsAddress } from 'utils/addressHelpers'
 import pieProfileAbi from 'config/abi/pieProfile.json'
 import pieRabbitsAbi from 'config/abi/pieRabbits.json'
 import { Nft } from 'config/constants/types'
