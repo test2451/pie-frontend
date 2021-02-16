@@ -1,15 +1,15 @@
-import { getPancakeProfileAddress, getPancakeRabbitsAddress, getRabbitMintingFarmAddress } from 'utils/addressHelpers'
+import { getPieProfileAddress, getPaieRabbitsAddress, getRabbitMintingFarmAddress } from 'utils/addressHelpers'
 import { getContract } from 'utils/web3'
-import profileABI from 'config/abi/pancakeProfile.json'
-import pancakeRabbitsAbi from 'config/abi/pancakeRabbits.json'
+import profileABI from 'config/abi/pieProfile.json'
+import pieRabbitsAbi from 'config/abi/pieRabbits.json'
 import rabbitMintingFarmAbi from 'config/abi/rabbitmintingfarm.json'
 
 export const getProfileContract = () => {
-  return getContract(profileABI, getPancakeProfileAddress())
+  return getContract(profileABI, getPieProfileAddress())
 }
 
-export const getPancakeRabbitContract = () => {
-  return getContract(pancakeRabbitsAbi, getPancakeRabbitsAddress())
+export const getPieRabbitContract = () => {
+  return getContract(pieRabbitsAbi, getPieRabbitsAddress())
 }
 
 export const getRabbitMintingContract = () => {
