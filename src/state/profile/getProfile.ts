@@ -1,6 +1,6 @@
-import { getPancakeProfileAddress, getPancakeRabbitsAddress } from 'utils/addressHelpers'
-import pancakeProfileAbi from 'config/abi/pancakeProfile.json'
-import pancakeRabbitsAbi from 'config/abi/pancakeRabbits.json'
+import { getPancakeProfileAddress, getPieRabbitsAddress } from 'utils/addressHelpers'
+import pieProfileAbi from 'config/abi/pieProfile.json'
+import pieRabbitsAbi from 'config/abi/pieRabbits.json'
 import { Nft } from 'config/constants/types'
 import { getContract } from 'utils/web3'
 import { Profile } from 'state/types'
@@ -8,8 +8,8 @@ import { getTeam } from 'state/teams/helpers'
 import nfts from 'config/constants/nfts'
 import { transformProfileResponse } from './helpers'
 
-const profileContract = getContract(pancakeProfileAbi, getPancakeProfileAddress())
-const rabbitContract = getContract(pancakeRabbitsAbi, getPancakeRabbitsAddress())
+const profileContract = getContract(pieProfileAbi, getPieProfileAddress())
+const rabbitContract = getContract(pieRabbitsAbi, getPieRabbitsAddress())
 const profileApi = process.env.REACT_APP_API_PROFILE
 
 export interface GetProfileResponse {
@@ -58,7 +58,7 @@ const getProfile = async (address: string): Promise<GetProfileResponse> => {
         `profile_${address}`,
         JSON.stringify({
           username,
-          avatar: `https://pancakeswap.finance/images/nfts/${nft.images.sm}`,
+          avatar: `https://pieswap.org/images/nfts/${nft.images.sm}`,
         }),
       )
     }
