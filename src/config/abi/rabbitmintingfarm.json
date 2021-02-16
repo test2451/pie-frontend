@@ -2,13 +2,13 @@
   {
     "inputs": [
       {
-        "internalType": "contract PancakeBunnies",
-        "name": "_pancakeBunnies",
+        "internalType": "contract PieBunnies",
+        "name": "_pieBunnies",
         "type": "address"
       },
       {
-        "internalType": "contract IBEP20",
-        "name": "_cakeToken",
+        "internalType": "contract IOIP20",
+        "name": "_pieToken",
         "type": "address"
       },
       {
@@ -81,10 +81,10 @@
   },
   {
     "inputs": [],
-    "name": "cakeToken",
+    "name": "pieToken",
     "outputs": [
       {
-        "internalType": "contract IBEP20",
+        "internalType": "contract IOIP20",
         "name": "",
         "type": "address"
       }
@@ -181,7 +181,7 @@
     "name": "pancakeBunnies",
     "outputs": [
       {
-        "internalType": "contract PancakeBunnies",
+        "internalType": "contract PieBunnies",
         "name": "",
         "type": "address"
       }
