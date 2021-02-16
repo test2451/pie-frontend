@@ -1,7 +1,7 @@
 import poolsConfig from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
 import pieABI from 'config/abi/pie.json'
-import wbnbABI from 'config/abi/weth.json'
+import woktABI from 'config/abi/weth.json'
 import { QuoteToken } from 'config/constants/types'
 import multicall from 'utils/multicall'
 import { getAddress, getWbnbAddress } from 'utils/addressHelpers'
@@ -25,7 +25,7 @@ export const fetchPoolsBlockLimits = async () => {
   const starts = await multicall(sousChefABI, callsStartBlock)
   const ends = await multicall(sousChefABI, callsEndBlock)
 
-  return poolsWithEnd.map((cakePoolConfig, index) => {
+  return poolsWithEnd.map((pieePoolConfig, index) => {
     const startBlock = starts[index]
     const endBlock = ends[index]
     return {
@@ -56,8 +56,8 @@ export const fetchPoolsTotalStatking = async () => {
     }
   })
 
-  const nonOktPoolsTotalStaked = await multicall(cakeABI, callsNonOktPools)
-  const oktPoolsTotalStaked = await multicall(wbnbABI, callsOktPools)
+  const nonOktPoolsTotalStaked = await multicall(pieABI, callsNonOktPools)
+  const oktPoolsTotalStaked = await multicall(woktABI, callsOktPools)
 
   return [
     ...nonOktPools.map((p, index) => ({
