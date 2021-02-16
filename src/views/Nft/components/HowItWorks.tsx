@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button, Heading, Text as UIKitText, ArrowForwardIcon } from '@pancakeswap-libs/uikit'
+import { Button, Heading, Text as UIKitText, ArrowForwardIcon } from '@pieswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
 
 const StyledHowItWorks = styled.div`
@@ -59,7 +59,7 @@ const HowItWorks = () => {
           <Text>
             {TranslateString(
               638,
-              "Winners can trade in their NFTs for a CAKE value until the expiry date written below. If you don't trade in your NFT by then, don’t worry: you’ll still keep it in your wallet!",
+              "Winners can trade in their NFTs for a PIE value until the expiry date written below. If you don't trade in your NFT by then, don’t worry: you’ll still keep it in your wallet!",
             )}
           </Text>
         </Row>
